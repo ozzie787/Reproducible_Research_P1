@@ -1,0 +1,74 @@
+---
+title: "Reproducible Research - Project 1"
+author: ""
+output:
+     html_document:
+          toc: TRUE
+---
+
+*********
+
+# Reproducible Research - Project 1
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+library(knitr)
+library(rmarkdown)
+```
+
+```{r global_options, eval=FALSE, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, fig.path='Figs/',
+                      echo=TRUE, warning=FALSE, message=FALSE)
+```
+
+## Libraries/Packages Required
+
+The following libraries were used
+
+| Package    | Version |
+|------------|:--------|
+| data.table | 1.11.4  |
+| dplyr      | 0.7.6   |
+| tidyr      | 0.8.1   |
+| lubridate  | 1.7.4   |
+
+If installed, they can be loaded as follows:
+
+```{r libraries, message=FALSE, warning=FALSE, include=TRUE}
+library(data.table)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+```
+
+## Obtaining & Extracting Data
+
+###The Data
+
+The data was accessed from:  
+**URL:** <https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip>
+**Time:** 2018-08-07 20:14:20 BST.  
+**Data Format:** ZIP Archive
+
+### Download of, and Extracting the Raw Data
+
+If the data is not downloaded, the data is downloaded from the above URL. If the data has been previously downloaded and named as data.zip, the script prints a message and moves onto the next step.
+
+```{r message=FALSE}
+if (!file.exists("data.zip")) {
+     message("Downloading data from 'https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip", dest="data.zip", dest="data.zip'... Please wait")
+     download.file(url = "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip", dest="data.zip", dest = "data.zip", method = "curl")
+} else {
+     message("Data already downloaded as data.zip")
+}
+```
+
+If the data is not extracted, the data is extracted from data.zip. If the data has been previously extracted to to "UCI HAR Dataset", the script prints a message and moves onto the next step.
+
+```{r message = FALSE}
+if (file.exists("data.zip") & !file.exists("activity.csv")) {
+     message("Extracting data... Please wait")
+     unzip("data.zip")
+} else {
+     message("Data already extracted to ./activity.csv")
+}
+```
